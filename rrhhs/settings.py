@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'apps.core',
     'apps.security',
-
+    'apps.loans',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
