@@ -24,6 +24,6 @@ urlpatterns = [
     path('modules/', home.ModuloTemplateView.as_view(), name="modules"),
     path('core/', include('apps.core.urls', namespace="core")),
     path('security/', include('apps.security.urls', namespace="security")),
-    #    path('loans/', include('apps.loans.urls', namespace="loans")),
+    path('loans/', include('apps.loans.urls', namespace="loans")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,29 +5,32 @@ from apps.security.forms.user import UserForm
 from apps.security.models import User
 from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin
 
+
 class UserListView(ListViewMixin, ListView):
     template_name = 'user/list.html'
     model = User
     context_object_name = 'users'
-    paginate_by=1
+    paginate_by = 1
     permission_required = 'view_user'
-    
+
     def get_queryset(self):
-        q1 = self.request.GET.get('q1') # ver
-        q2 = self.request.GET.get('q2') # ver
-        q3 = self.request.GET.get('q3') # ver
-        if q1 is not None: self.query.add(Q(dni__icontains=q1), Q.AND) 
-        if q2 is not None: self.query.add(Q(last_name__icontains=q2), Q.AND)
-        if q3 is not None: self.query.add(Q(email__icontains=q3), Q.AND)
+        q1 = self.request.GET.get('q1')  # ver
+        q2 = self.request.GET.get('q2')  # ver
+        q3 = self.request.GET.get('q3')  # ver
+        if q1 is not None:
+            self.query.add(Q(dni__icontains=q1), Q.AND)
+        if q2 is not None:
+            self.query.add(Q(last_name__icontains=q2), Q.AND)
+        if q3 is not None:
+            self.query.add(Q(email__icontains=q3), Q.AND)
         return self.model.objects.filter(self.query).order_by('id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['permission_add'] = context['permissions'].get('add_user','')
+        context['permission_add'] = context['permissions'].get('add_user', '')
         context['create_url'] = reverse_lazy('security:user_create')
         return context
 
-  
 
 class UserCreateView(CreateViewMixin, CreateView):
     model = User
@@ -41,12 +44,13 @@ class UserCreateView(CreateViewMixin, CreateView):
         context['grabar'] = 'Grabar Usuario'
         context['back_url'] = self.success_url
         return context
-    
+
     def form_valid(self, form):
         self.object = form.save()
         form.instance.set_password(form.cleaned_data['password'])
         form.instance.save()
         return super().form_valid(form)
+
 
 class UserUpdateView(UpdateViewMixin, UpdateView):
     model = User
@@ -60,7 +64,7 @@ class UserUpdateView(UpdateViewMixin, UpdateView):
         context['grabar'] = 'Actualizar Usuario'
         context['back_url'] = self.success_url
         return context
-    
+
     def form_valid(self, form):
         password_anterior = form.fields['password'].initial
         self.object = form.save()
@@ -68,6 +72,7 @@ class UserUpdateView(UpdateViewMixin, UpdateView):
             form.instance.set_password(form.cleaned_data['password'])
         form.instance.save()
         return super().form_valid(form)
+
 
 class UserDeleteView(DeleteViewMixin, DeleteView):
     model = User

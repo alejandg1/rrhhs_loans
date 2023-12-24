@@ -8,10 +8,12 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 
 # configuracion de contexto generico y permisos de botones
+
+
 class ListViewMixin(object):
     query = None
     paginate_by = 3
-    
+
     def dispatch(self, request, *args, **kwargs):
         self.query = Q()
         return super().dispatch(request, *args, **kwargs)
@@ -23,13 +25,14 @@ class ListViewMixin(object):
         print("estoy en el mixing..")
         print(self.request.session.get('group_id'))
         context['permissions'] = self._get_permission_dict_of_group()
-        # crear la data y la session con los menus y modulos del usuario 
+        # crear la data y la session con los menus y modulos del usuario
         MenuModule(self.request).fill(context)
         return context
 
     def _get_permission_dict_of_group(self):
-        print("user:=",self.request.user)
+        print("user:=", self.request.user)
         return GroupPermission.get_permission_dict_of_group(self.request.user)
+
 
 class CreateViewMixin(object):
     def get_context_data(self, **kwargs):
@@ -42,19 +45,21 @@ class CreateViewMixin(object):
     def _get_permission_dict_of_group(self):
         return GroupPermission.get_permission_dict_of_group(self.request.user)
 
+
 class UpdateViewMixin(object):
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'{self.model._meta.verbose_name_plural}'
         context['permissions'] = self._get_permission_dict_of_group()
         MenuModule(self.request).fill(context)
-        
+
         return context
 
     def _get_permission_dict_of_group(self):
         return GroupPermission.get_permission_dict_of_group(self.request.user)
-    
+
+
 class DeleteViewMixin(object):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,8 +70,8 @@ class DeleteViewMixin(object):
 
     def _get_permission_dict_of_group(self):
         return GroupPermission.get_permission_dict_of_group(self.request.user)
-    
-         
+
+
 # Permisos de urls o modulos
 class PermissionMixin(object):
     permission_required = ''
@@ -93,7 +98,8 @@ class PermissionMixin(object):
                     permissions__codename__in=permissions
             ).exists():
                 print("no tengo permiso")
-                messages.error(request, 'No tiene permiso para ingresar a este módulo')
+                messages.error(
+                    request, 'No tiene permiso para ingresar a este módulo')
                 return redirect('home')
 
             return super().get(request, *args, **kwargs)
@@ -116,5 +122,4 @@ class PermissionMixin(object):
         if isinstance(self.permission_required, str):
             return self.permission_required,
 
-        return tuple(self.permission_required)     
-    
+        return tuple(self.permission_required)

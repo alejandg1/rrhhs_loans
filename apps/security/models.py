@@ -1,4 +1,3 @@
-import json
 from crum import get_current_request
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import Group

@@ -1,0 +1,43 @@
+{% extends "components/base_list.html" %}
+{% load static%}
+{% block search %}
+   <form action="" style="max-width: 450px;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar por nombre" name="q1" value="{{ request.GET.q1 }}">
+            <button class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-title="Escriba parte del nombre y dar click en buscar">
+                Buscar
+            </button>
+        </div>
+    </form>           
+{% endblock search %}
+{% block columns %}
+    <tr > 
+        <th>id</th>
+        <th>nombre</th>
+        <th class="text-danger">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for item in insuriers %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td class="text-center ">
+            {% if permissions.change_insurier %}
+                <a class="text-success fs-4" href="{% url 'loans:insurier_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar la aseguradora"><i class="bi bi-pencil-fill"></i></a>
+            {% endif %}
+            {% if permissions.delete_insurier %}
+                <a class="text-danger fs-4" href="{% url 'loans:insurier_delete' item.id %}" data-bs-toggle="tooltip" data-bs-title="Eliminar la aseguradora"><i class="bi bi-x-circle-fill"></i></a>
+            {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+           {% include "components/empty.html" %}
+    {% endfor%}  
+{% endblock %}
+
+
+
+
+
