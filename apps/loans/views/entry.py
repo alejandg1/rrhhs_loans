@@ -4,15 +4,14 @@ from apps.loans.forms.entry import EntryForm
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
-from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin
+from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 
 
 class EntryListView(ListViewMixin, ListView):
     model = Entry
     template_name = 'entry/list.html'
     context_object_name = 'entries'
-    paginate_by = 2
-    query = None
+    permission_required = 'view_entry'
 
     def get_queryset(self):
         self.query = Q()
@@ -26,8 +25,9 @@ class EntryListView(ListViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'rubros'
         context['create_url'] = reverse_lazy('loans:entry_create')
+        context['permission_add'] = context['permissions'].get(
+            'add_entry', '')
         return context
 
 
@@ -36,10 +36,10 @@ class EntryCreateView(CreateViewMixin, CreateView):
     template_name = 'entry/form.html'
     form_class = EntryForm
     success_url = reverse_lazy('loans:entry_list')
+    permission_required = 'add_entry'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['title'] = 'Ingresar nuevo rubro'
         context['grabar'] = 'Grabar rubro'
         context['back_url'] = self.success_url
         return context
@@ -50,10 +50,10 @@ class EntryUpdateView(UpdateViewMixin, UpdateView):
     template_name = 'entry/form.html'
     form_class = EntryForm
     success_url = reverse_lazy('loans:entry_list')
+    permission_required = 'change_entry'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['title'] = 'Actualizar el rubro'
         context['grabar'] = 'Actualizar rubro'
         context['back_url'] = self.success_url
         return context
@@ -63,10 +63,10 @@ class EntryDeleteView(DeleteViewMixin, DeleteView):
     model = Entry
     template_name = 'entry/delete.html'
     success_url = reverse_lazy('loans:entry_list')
+    permission_required = 'delete_entry'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['title'] = 'Eliminar el rubro'
         context['grabar'] = 'Eliminar rubro'
         context['description'] = f"¿Desea Eliminar la rubro: {self.object.name}?"
         context['back_url'] = self.success_url

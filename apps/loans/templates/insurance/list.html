@@ -15,6 +15,7 @@
         <th>ID</th>
         <th>aseguradora</th>
         <th>fecha</th>
+        <th>empleado</th>
         <!-- <th>aseguradora</th> -->
         <th class="text-danger">Acciones</th>
     </tr>
@@ -26,6 +27,7 @@
             <td>{{item.id}}</td>
             <td>{{item.insurier}}</td>
             <td>{{item.date}}</td>
+            <td>{{item.employee}}</td>
             <td class="text-center ">
             {% if permissions.change_insurance %}
                 <a class="text-success fs-4" href="{% url 'loans:insurance_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar el seguro"><i class="bi bi-pencil-fill"></i></a>

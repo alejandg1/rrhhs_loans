@@ -12,7 +12,7 @@ from rrhhs import utils
 class Menu(models.Model):
     name = models.CharField(verbose_name='Nombre', max_length=150, unique=True)
     icon = models.CharField(verbose_name='Icono', max_length=100)
-  
+
     def __str__(self):
         return self.name
 
@@ -32,6 +32,8 @@ class Menu(models.Model):
 
 # menu ficha: modulos: empleado, cargo
 # permisos: add_empleado, view_empleado
+
+
 class Module(models.Model):
     url = models.CharField(verbose_name='Url', max_length=100, unique=True)
     name = models.CharField(verbose_name='Nombre', max_length=100)
@@ -51,7 +53,6 @@ class Module(models.Model):
         blank=True
     )
 
-   
     def __str__(self):
         return '{} [{}]'.format(self.name, self.url)
 
@@ -71,6 +72,8 @@ class Module(models.Model):
 # grupo: menu:     modulos : add,view...
 # admi: ficha: sobretiempo,rubros: add_sobretiemp,view_sobretiemp,add_rubros,view_rubros
 # auditoria: sobretiempo,rubros: add_sobretiemp,view_sobretiemp,add_rubros,view_rubros
+
+
 class GroupModulePermission(models.Model):
     group = models.ForeignKey(Group, on_delete=models.PROTECT)
     module = models.ForeignKey(Module, on_delete=models.PROTECT)
@@ -97,7 +100,8 @@ class GroupModulePermission(models.Model):
 
 
 class User(AbstractUser):
-    dni = models.CharField(verbose_name='Cédula o RUC', max_length=13, blank=True,null=True)
+    dni = models.CharField(verbose_name='Cédula o RUC',
+                           max_length=13, blank=True, null=True)
     image = models.ImageField(
         verbose_name='Archive image',
         upload_to='users',
@@ -105,12 +109,14 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
-    email = models.EmailField('email address',unique=True)
-    organization = models.ForeignKey(Organization,on_delete=models.PROTECT, blank=True,null=True)
-    direction=models.CharField('Direccion',max_length=200,blank=True,null=True)
-    phone=models.CharField('Telefono',max_length=50,blank=True,null=True)
-  
-    USERNAME_FIELD = "email" # cambia el login
+    email = models.EmailField('email address', unique=True)
+    organization = models.ForeignKey(
+        Organization, on_delete=models.PROTECT, blank=True, null=True)
+    direction = models.CharField(
+        'Direccion', max_length=200, blank=True, null=True)
+    phone = models.CharField('Telefono', max_length=50, blank=True, null=True)
+
+    USERNAME_FIELD = "email"  # cambia el login
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     class Meta:
@@ -126,7 +132,7 @@ class User(AbstractUser):
                 "change_userpassword",
                 f"Cambiar password {verbose_name}"
             ),
-          
+
         )
 
     def __str__(self):
@@ -144,7 +150,7 @@ class User(AbstractUser):
 
     def get_group_session(self):
         request = get_current_request()
-        print("request==>",request)
+        print("request==>", request)
         return Group.objects.get(pk=request.session['group_id'])
 
     def set_group_session(self):
