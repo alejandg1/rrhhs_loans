@@ -1,7 +1,7 @@
 from django.contrib import admin
-from apps.loans.models import entry, employee, Insurier, Insurance
-admin.site.register(entry)
-admin.site.register(employee)
+from apps.loans.models import Entry, Employee, Insurier, Insurance
+admin.site.register(Entry)
+admin.site.register(Employee)
 admin.site.register(Insurance)
 admin.site.register(Insurier)
 

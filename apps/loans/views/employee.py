@@ -4,15 +4,14 @@ from apps.loans.forms.employee import EmployeeForm
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
-from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin
+
+from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 
 
-class EmployeeListView(ListViewMixin, ListView):
+class EmployeeListView(PermissionMixin, ListViewMixin, ListView):
     model = Employee
     template_name = 'employee/list.html'
     context_object_name = 'employees'
-    paginate_by = 2
-    query = None
 
     def get_queryset(self):
         self.query = Q()
@@ -31,7 +30,7 @@ class EmployeeListView(ListViewMixin, ListView):
         return context
 
 
-class EmployeeCreateView(CreateViewMixin, CreateView):
+class EmployeeCreateView(PermissionMixin, CreateViewMixin, CreateView):
     model = Employee
     template_name = 'employee/form.html'
     form_class = EmployeeForm
@@ -45,7 +44,7 @@ class EmployeeCreateView(CreateViewMixin, CreateView):
         return context
 
 
-class EmployeeUpdateView(UpdateViewMixin, UpdateView):
+class EmployeeUpdateView(PermissionMixin, UpdateViewMixin, UpdateView):
     model = Employee
     template_name = 'employee/form.html'
     form_class = EmployeeForm
@@ -59,7 +58,7 @@ class EmployeeUpdateView(UpdateViewMixin, UpdateView):
         return context
 
 
-class EmployeeDeleteView(DeleteViewMixin, DeleteView):
+class EmployeeDeleteView(PermissionMixin, DeleteViewMixin, DeleteView):
     model = Employee
     template_name = 'employee/delete.html'
     success_url = reverse_lazy('loans:employee_list')

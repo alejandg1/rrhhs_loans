@@ -4,15 +4,13 @@ from apps.loans.forms.entry import EntryForm
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
-from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin
+from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 
 
-class EntryListView(ListViewMixin, ListView):
+class EntryListView(PermissionMixin, ListViewMixin, ListView):
     model = Entry
     template_name = 'entry/list.html'
     context_object_name = 'entries'
-    paginate_by = 2
-    query = None
 
     def get_queryset(self):
         self.query = Q()
@@ -31,7 +29,7 @@ class EntryListView(ListViewMixin, ListView):
         return context
 
 
-class EntryCreateView(CreateViewMixin, CreateView):
+class EntryCreateView(PermissionMixin, CreateViewMixin, CreateView):
     model = Entry
     template_name = 'entry/form.html'
     form_class = EntryForm
@@ -45,7 +43,7 @@ class EntryCreateView(CreateViewMixin, CreateView):
         return context
 
 
-class EntryUpdateView(UpdateViewMixin, UpdateView):
+class EntryUpdateView(PermissionMixin, UpdateViewMixin, UpdateView):
     model = Entry
     template_name = 'entry/form.html'
     form_class = EntryForm
@@ -59,7 +57,7 @@ class EntryUpdateView(UpdateViewMixin, UpdateView):
         return context
 
 
-class EntryDeleteView(DeleteViewMixin, DeleteView):
+class EntryDeleteView(PermissionMixin, DeleteViewMixin, DeleteView):
     model = Entry
     template_name = 'entry/delete.html'
     success_url = reverse_lazy('loans:entry_list')

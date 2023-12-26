@@ -4,15 +4,14 @@ from apps.loans.forms.insurance import InsuranceForm
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
-from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin
+
+from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 
 
-class InsuranceListView(ListViewMixin, ListView):
+class InsuranceListView(PermissionMixin, ListViewMixin, ListView):
     model = Insurance
     template_name = 'insurance/list.html'
     context_object_name = 'insurances'
-    paginate_by = 2
-    query = None
 
     def get_queryset(self):
         self.query = Q()
@@ -31,7 +30,7 @@ class InsuranceListView(ListViewMixin, ListView):
         return context
 
 
-class InsuranceCreateView(CreateViewMixin, CreateView):
+class InsuranceCreateView(PermissionMixin, CreateViewMixin, CreateView):
     model = Insurance
     template_name = 'insurance/form.html'
     form_class = InsuranceForm
@@ -45,7 +44,7 @@ class InsuranceCreateView(CreateViewMixin, CreateView):
         return context
 
 
-class InsuranceUpdateView(UpdateViewMixin, UpdateView):
+class InsuranceUpdateView(PermissionMixin, UpdateViewMixin, UpdateView):
     model = Insurance
     template_name = 'insurance/form.html'
     form_class = InsuranceForm
@@ -59,7 +58,7 @@ class InsuranceUpdateView(UpdateViewMixin, UpdateView):
         return context
 
 
-class InsuranceDeleteView(DeleteViewMixin, DeleteView):
+class InsuranceDeleteView(PermissionMixin, DeleteViewMixin, DeleteView):
     model = Insurance
     template_name = 'insurance/delete.html'
     success_url = reverse_lazy('loans:insurance_list')

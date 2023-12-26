@@ -5,7 +5,6 @@ from apps.loans.forms.insurier import InsurierForm
 from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
-from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin
 
 
 class InsurierListView(PermissionMixin, ListViewMixin, ListView):
@@ -13,8 +12,6 @@ class InsurierListView(PermissionMixin, ListViewMixin, ListView):
     template_name = 'insurier/list.html'
     context_object_name = 'insurier'
     permission_required = 'view_insurier'
-    paginate_by = 2
-    query = None
 
     def get_queryset(self):
         self.query = Q()

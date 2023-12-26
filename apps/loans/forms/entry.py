@@ -5,4 +5,4 @@ from apps.loans.models import Entry
 class EntryForm(ModelForm):
     class Meta:
         model = Entry
-        entrys = ['entry']
+        fields = ['code', 'description', 'value']
