@@ -10,6 +10,7 @@ __pycache__/
 .env
 venv/
 env/
+EntRamita/
 entrrhhs1/
 build/
 develop-eggs/
