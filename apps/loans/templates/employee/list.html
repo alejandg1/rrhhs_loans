@@ -13,8 +13,13 @@
 {% block columns %}
     <tr > 
         <th>ID</th>
-        <th>aseguradora</th>
-        <th>fecha</th>
+        <th>Empleado</th>
+        <th>Cédula</th>
+        <th>Cargo</th>
+        <th>Departamento</th>
+        <th>Fecha entrada</th>
+        <th>Estado</th>
+        <th>Estado</th>
         <!-- <th>aseguradora</th> -->
         <th class="text-danger">Acciones</th>
     </tr>
@@ -30,6 +35,7 @@
             <td>{{item.position}}</td>
             <td>{{item.department}}</td>
             <td>{{item.date_entry}}</td>
+            <td>{{item.state}}</td>
             <td class="text-center ">
             {% if permissions.change_employee %}
                 <a class="text-success fs-4" href="{% url 'loans:employee_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar el seguro"><i class="bi bi-pencil-fill"></i></a>

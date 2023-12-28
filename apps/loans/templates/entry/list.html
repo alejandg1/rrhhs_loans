@@ -13,8 +13,11 @@
 {% block columns %}
     <tr > 
         <th>ID</th>
-        <th>aseguradora</th>
-        <th>fecha</th>
+        <th>Descripción</th>
+        <th>Valor</th>
+        <th>Número de cuotas</th>
+        <th>Cuotas</th>
+        <th>Estado</th>
         <!-- <th>aseguradora</th> -->
         <th class="text-danger">Acciones</th>
     </tr>
@@ -24,9 +27,11 @@
     {% for item in entries %}
         <tr>
             <td>{{item.id}}</td>
-            <td>{{item.code}}</td>
             <td>{{item.description}}</td>
             <td>{{item.value}}</td>
+            <td>{{item.cuota}}</td>
+            <td>{{item.num_cuotas}}</td>
+            <td>{{item.state}}</td>
             <td class="text-center ">
             {% if permissions.change_entry %}
                 <a class="text-success fs-4" href="{% url 'loans:entry_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar el seguro"><i class="bi bi-pencil-fill"></i></a>

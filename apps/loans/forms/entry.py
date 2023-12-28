@@ -1,8 +1,14 @@
+from django import forms
 from django.forms import ModelForm
-from apps.loans.models import Entry
+from apps.loans.models import Entry, ESTADO_CHOICES
 
 
 class EntryForm(ModelForm):
     class Meta:
         model = Entry
-        fields = ['code', 'description', 'value']
+        exclude = ['cuota']
+        
+    state = forms.ChoiceField(
+        choices=ESTADO_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
