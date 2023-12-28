@@ -7,7 +7,7 @@ class EntryForm(ModelForm):
     class Meta:
         model = Entry
         exclude = ['cuota']
-        
+
     state = forms.ChoiceField(
         choices=ESTADO_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})

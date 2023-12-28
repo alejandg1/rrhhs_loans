@@ -5,4 +5,4 @@ from apps.loans.models import Insurier
 class InsurierForm(ModelForm):
     class Meta:
         model = Insurier
-        fields = ['name']
+        fields = ['name','tlf_contact','state']

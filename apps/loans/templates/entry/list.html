@@ -13,10 +13,11 @@
 {% block columns %}
     <tr > 
         <th>ID</th>
+        <th>empleado</th>
         <th>Descripción</th>
         <th>Valor</th>
-        <th>Número de cuotas</th>
         <th>Cuotas</th>
+        <th>Número de cuotas</th>
         <th>Estado</th>
         <!-- <th>aseguradora</th> -->
         <th class="text-danger">Acciones</th>
@@ -27,6 +28,7 @@
     {% for item in entries %}
         <tr>
             <td>{{item.id}}</td>
+            <td>{{item.employee}}</td>
             <td>{{item.description}}</td>
             <td>{{item.value}}</td>
             <td>{{item.cuota}}</td>
