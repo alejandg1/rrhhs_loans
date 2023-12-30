@@ -69,6 +69,6 @@ class InsuranceDeleteView(DeleteViewMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['grabar'] = 'Eliminar seguro'
-        context['description'] = f"¿Desea Eliminar la seguro: {self.object.name}?"
+        context['description'] = f"¿Desea Eliminar el seguro de: {self.object.employee}?"
         context['back_url'] = self.success_url
         return context

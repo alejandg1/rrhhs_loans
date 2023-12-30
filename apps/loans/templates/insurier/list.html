@@ -15,6 +15,7 @@
         <th>id</th>
         <th>nombre</th>
         <th>contacto</th>
+        <th>estado</th>
         <th class="text-danger">Acciones</th>
     </tr>
 {% endblock %}
@@ -25,6 +26,7 @@
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.tlf_contact}}</td>
+            <td>{{item.state}}</td>
             <td class="text-center ">
             {% if permissions.change_insurier %}
                 <a class="text-success fs-4" href="{% url 'loans:insurier_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar la aseguradora"><i class="bi bi-pencil-fill"></i></a>
