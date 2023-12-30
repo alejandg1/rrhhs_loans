@@ -26,6 +26,7 @@ class InsuranceListView(ListViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'seguros'
         context['create_url'] = reverse_lazy('loans:insurance_create')
         context['permission_add'] = context['permissions'].get(
             'add_insurance', '')

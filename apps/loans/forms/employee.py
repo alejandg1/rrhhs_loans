@@ -6,7 +6,7 @@ from apps.loans.models import Employee, ESTADO_CHOICES
 class EmployeeForm(ModelForm):
     class Meta:
         model = Employee
-        exclude = ['date_entry']
+        fields = '__all__'
 
     state = forms.ChoiceField(
         choices=ESTADO_CHOICES,

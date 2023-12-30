@@ -1,17 +1,17 @@
 from django.urls import reverse_lazy
-from apps.loans.models import Entry
-from apps.loans.forms.entry import EntryForm
+from apps.loans.models import Payment
+from apps.loans.forms.payment import PaymentForm
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
 from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 
 
-class EntryListView(ListViewMixin, ListView):
-    model = Entry
-    template_name = 'entry/list.html'
-    context_object_name = 'entries'
-    permission_required = 'view_entry'
+class PaymentListView(ListViewMixin, ListView):
+    model = Payment
+    template_name = 'payment/list.html'
+    context_object_name = 'payments'
+    permission_required = 'view_payment'
 
     def get_queryset(self):
         self.query = Q()
@@ -25,50 +25,50 @@ class EntryListView(ListViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'rubros'
-        context['create_url'] = reverse_lazy('loans:entry_create')
+        context['title'] = 'pagos'
+        context['create_url'] = reverse_lazy('loans:payment_create')
         context['permission_add'] = context['permissions'].get(
-            'add_entry', '')
+            'add_payment', '')
         return context
 
 
-class EntryCreateView(CreateViewMixin, CreateView):
-    model = Entry
-    template_name = 'entry/form.html'
-    form_class = EntryForm
-    success_url = reverse_lazy('loans:entry_list')
-    permission_required = 'add_entry'
+class PaymentCreateView(CreateViewMixin, CreateView):
+    model = Payment
+    template_name = 'payment/form.html'
+    form_class = PaymentForm
+    success_url = reverse_lazy('loans:payment_list')
+    permission_required = 'add_payment'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['grabar'] = 'Grabar rubro'
+        context['grabar'] = 'Grabar pago'
         context['back_url'] = self.success_url
         return context
 
 
-class EntryUpdateView(UpdateViewMixin, UpdateView):
-    model = Entry
-    template_name = 'entry/form.html'
-    form_class = EntryForm
-    success_url = reverse_lazy('loans:entry_list')
-    permission_required = 'change_entry'
+class PaymentUpdateView(UpdateViewMixin, UpdateView):
+    model = Payment
+    template_name = 'payment/form.html'
+    form_class = PaymentForm
+    success_url = reverse_lazy('loans:payment_list')
+    permission_required = 'change_payment'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['grabar'] = 'Actualizar rubro'
+        context['grabar'] = 'Actualizar pago'
         context['back_url'] = self.success_url
         return context
 
 
-class EntryDeleteView(DeleteViewMixin, DeleteView):
-    model = Entry
-    template_name = 'entry/delete.html'
-    success_url = reverse_lazy('loans:entry_list')
-    permission_required = 'delete_entry'
+class PaymentDeleteView(DeleteViewMixin, DeleteView):
+    model = Payment
+    template_name = 'payment/delete.html'
+    success_url = reverse_lazy('loans:payment_list')
+    permission_required = 'delete_payment'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['grabar'] = 'Eliminar rubro'
-        context['description'] = f"¿Desea Eliminar el rubro: {self.object.code}?"
+        context['grabar'] = 'Eliminar pago'
+        context['description'] = f"¿Desea Eliminar el pago: {self.object.code}?"
         context['back_url'] = self.success_url
         return context
