@@ -69,11 +69,13 @@ class Entry(models.Model):
     value = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name='valor', null=True)
     state = models.CharField(max_length=20,
-                             verbose_name='estado', choices=ESTADO_CHOICES, default='activo')
+        verbose_name='estado', choices=ESTADO_CHOICES, default='activo')
     num_cuotas = models.IntegerField(
         verbose_name='número de cuotas', blank=True, null=True)
     cuota = models.DecimalField(max_digits=10, decimal_places=2,
-                                verbose_name='cuota', blank=True, null=True)
+        verbose_name='cuota', blank=True, null=True)
+    date_prestamo = models.DateField(verbose_name='fecha del préstamo', blank=True, null=True)
+    date_descuento = models.DateField(verbose_name='fecha de inicio de descuento', blank=True, null=True)
 
     def __str__(self):
         return (f"{self.code} {self.id} {self.value}")
