@@ -80,6 +80,7 @@ class Insurance(models.Model):
 
 class Entry(models.Model):
     id = models.AutoField(primary_key=True)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
     description = models.TextField(verbose_name='descripción',
                                    null=True)
     code = models.CharField(verbose_name='codigo',
@@ -90,9 +91,11 @@ class Entry(models.Model):
                                 verbose_name='valor',
                                 null=True)
     state = models.CharField(max_length=20,
+
                              verbose_name='estado',
                              choices=ESTADO_CHOICES,
                              default='activo')
+
 
     def __str__(self):
         return (f"{self.code} {self.value}")
@@ -132,6 +135,9 @@ class Payment(models.Model):
     payment_date = models.DateField(
         verbose_name="fecha de pago",
         auto_now=True)
+    payment_date_descount = models.DateField(
+        verbose_name='fecha de inicio de descuento',
+        null=True)
     amount = models.FloatField(verbose_name="cantidad",
                                default=0)
     fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
