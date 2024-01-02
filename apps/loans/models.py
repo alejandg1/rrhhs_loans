@@ -90,9 +90,11 @@ class Entry(models.Model):
                                 verbose_name='valor',
                                 null=True)
     state = models.CharField(max_length=20,
+
                              verbose_name='estado',
                              choices=ESTADO_CHOICES,
                              default='activo')
+
 
     def __str__(self):
         return (f"{self.code} {self.value}")

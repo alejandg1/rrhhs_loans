@@ -16,7 +16,9 @@
         <th>Codigo</th>
         <th>Empleado</th>
         <th>Descripción</th>
+        <th>Fecha del préstamo</th>
         <th>Valor</th>
+
         <th>Estado</th>
         <!-- <th>aseguradora</th> -->
         <th class="text-danger">Acciones</th>
@@ -30,7 +32,9 @@
             <td>{{item.code}}</td>
             <td>{{item.employee}}</td>
             <td>{{item.description}}</td>
+            <td>{{item.date_prestamo}}</td>
             <td>{{item.value}}</td>
+
             <td>{{item.state}}</td>
             <td class="text-center ">
             {% if permissions.change_entry %}
