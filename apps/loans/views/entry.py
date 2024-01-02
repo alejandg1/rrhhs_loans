@@ -69,6 +69,8 @@ class EntryDeleteView(DeleteViewMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['grabar'] = 'Eliminar rubro'
+
         context['description'] = f"¿Desea Eliminar el rubro: {self.object.employee}?"
+
         context['back_url'] = self.success_url
         return context
