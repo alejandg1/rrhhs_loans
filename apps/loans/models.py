@@ -43,7 +43,7 @@ class Employee(models.Model):
                              choices=ESTADO_CHOICES,
                              default='activo')
 
-    def __str__(self):
+    def employee(self):
         return f"{self.name} {self.lastname}"
 
 
@@ -79,6 +79,7 @@ class Insurance(models.Model):
 
 class Entry(models.Model):
     id = models.AutoField(primary_key=True)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
     description = models.TextField(verbose_name='descripción',
                                    null=True)
     code = models.CharField(verbose_name='codigo',
