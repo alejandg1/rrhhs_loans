@@ -1,4 +1,5 @@
 __pycache__/
+reload.sh
 *.py[cod]
 *$py.class
 
