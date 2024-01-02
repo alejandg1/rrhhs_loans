@@ -15,10 +15,10 @@
         <th>ID</th>
         <th>Empleado</th>
         <th>Cédula</th>
+        <th>Cargas</th>
         <th>Cargo</th>
         <th>Departamento</th>
         <th>Fecha entrada</th>
-        <th>Estado</th>
         <th>Estado</th>
         <!-- <th>aseguradora</th> -->
         <th class="text-danger">Acciones</th>
@@ -29,9 +29,9 @@
     {% for item in employees %}
         <tr>
             <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.lastname}}</td>
+            <td>{{item.employee}}</td>
             <td>{{item.identity_card}}</td>
+            <td>{{item.cargas}}</td>
             <td>{{item.position}}</td>
             <td>{{item.department}}</td>
             <td>{{item.date_entry}}</td>

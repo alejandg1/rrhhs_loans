@@ -13,7 +13,7 @@ class EntryForm(ModelForm):
     
     class Meta:
         model = Entry
-        exclude = ['cuota']
+        fields = ['id', 'employee', 'code', 'description', 'value', 'state']
 
     state = forms.ChoiceField(
         choices=ESTADO_CHOICES,

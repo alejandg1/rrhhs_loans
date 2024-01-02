@@ -26,6 +26,7 @@ class InsuranceListView(ListViewMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'seguros'
         context['create_url'] = reverse_lazy('loans:insurance_create')
         context['permission_add'] = context['permissions'].get(
             'add_insurance', '')
@@ -69,6 +70,8 @@ class InsuranceDeleteView(DeleteViewMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['grabar'] = 'Eliminar seguro'
-        context['description'] = f"¿Desea Eliminar la seguro: {self.object.insurier}?"
+
+        context['description'] = f"¿Desea Eliminar el seguro de: {self.object.employee}?"
+
         context['back_url'] = self.success_url
         return context
