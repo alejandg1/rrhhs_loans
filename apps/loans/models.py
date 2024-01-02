@@ -43,7 +43,7 @@ class Employee(models.Model):
                              choices=ESTADO_CHOICES,
                              default='activo')
 
-    def employee(self):
+    def __str__(self):
         return f"{self.name} {self.lastname}"
 
 
@@ -132,6 +132,9 @@ class Payment(models.Model):
     payment_date = models.DateField(
         verbose_name="fecha de pago",
         auto_now=True)
+    payment_date_descount = models.DateField(
+        verbose_name='fecha de inicio de descuento',
+        null=True)
     amount = models.FloatField(verbose_name="cantidad",
                                default=0)
     fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
