@@ -12,6 +12,7 @@ class Insurier(models.Model):
     id = models.AutoField(
         primary_key=True)
     name = models.CharField(verbose_name="aseguradora", max_length=20)
+    Ins_type = models.CharField(verbose_name = "tipo seguro", max_length=50,default = "")
     tlf_contact = models.CharField(
         verbose_name="tlf_contacto", max_length=10, default="")
     state = models.CharField(max_length=20,
