@@ -12,7 +12,8 @@ class Insurier(models.Model):
     id = models.AutoField(
         primary_key=True)
     name = models.CharField(verbose_name="aseguradora", max_length=20)
-    Ins_type = models.CharField(verbose_name = "tipo seguro", max_length=50,default = "")
+    Ins_type = models.CharField(
+        verbose_name="tipo seguro", max_length=50, default="")
     tlf_contact = models.CharField(
         verbose_name="tlf_contacto", max_length=10, default="")
     state = models.CharField(max_length=20,
@@ -56,8 +57,7 @@ class Employee(models.Model):
 #                                  null=True)
 
 # seguro
-
-
+# NOTE: hasta que exista el detalle de seguro va a tener la FK de empleado
 class Insurance(models.Model):
     id = models.AutoField(primary_key=True)
     insurier = models.ForeignKey(Insurier, on_delete=models.CASCADE)
@@ -80,7 +80,7 @@ class Insurance(models.Model):
 
 class Entry(models.Model):
     id = models.AutoField(primary_key=True)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
+#    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
     description = models.TextField(verbose_name='descripción',
                                    null=True)
     code = models.CharField(verbose_name='codigo',
@@ -95,7 +95,6 @@ class Entry(models.Model):
                              verbose_name='estado',
                              choices=ESTADO_CHOICES,
                              default='activo')
-
 
     def __str__(self):
         return (f"{self.code} {self.value}")
@@ -126,6 +125,11 @@ class Fee(models.Model):
     payment_date = models.DateField(
         verbose_name="fecha de pago",
         null=True)
+    state = models.CharField(max_length=20,
+
+                             verbose_name='estado',
+                             choices=ESTADO_CHOICES,
+                             default='activo')
 
 # pagos realizados
 
@@ -141,3 +145,4 @@ class Payment(models.Model):
     amount = models.FloatField(verbose_name="cantidad",
                                default=0)
     fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
+

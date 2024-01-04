@@ -10,16 +10,16 @@ class EntryForm(ModelForm):
     date_descuento = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
     )
-    
+
     class Meta:
         model = Entry
-        fields = ['id', 'employee', 'code', 'description', 'value', 'state']
+        fields = ['id', 'code', 'description', 'value', 'state']
 
     state = forms.ChoiceField(
         choices=ESTADO_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    
+
     def clean(self):
         cleaned_data = super().clean()
         date_prestamo = cleaned_data.get('date_prestamo')
