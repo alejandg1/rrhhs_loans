@@ -1,0 +1,59 @@
+{% extends "components/base_list.html" %}
+{% load static%}
+{% block search %}
+   <form action="" style="max-width: 450px;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar por nombre" name="q1" value="{{ request.GET.q1 }}">
+            <button class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-title="Escriba parte del nombre y dar click en buscar">
+                Buscar
+            </button>
+        </div>
+    </form>           
+{% endblock search %}
+{% block columns %}
+    <tr > 
+        <th>ID</th>
+        <th>rubro</th>
+        <th>empleado</th>
+        <th>cantidad</th>
+        <th>emisión</th>
+        <th>valor cuota</th>
+        <th>N. cuotas</th>
+        <th>1° pago</th>
+        <th>periodo</th>
+        <th>estado</th>
+        <th class="text-danger">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for item in loans %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.entry}}</td>
+            <td>{{item.employee}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.quota_value}}</td>
+            <td>{{item.quota_num}}</td>
+            <td>{{item.frst_payment}}</td>
+            <td>{{item.period}}</td>
+            <td>{{item.state}}</td>
+            <td class="text-center ">
+            {% if permissions.change_loan %}
+                <a class="text-success fs-4" href="{% url 'loans:loan_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar el seguro"><i class="bi bi-pencil-fill"></i></a>
+            {% endif %}
+            {% if permissions.delete_loan %}
+                <a class="text-danger fs-4" href="{% url 'loans:loan_delete' item.id %}" data-bs-toggle="tooltip" data-bs-title="Eliminar el seguro"><i class="bi bi-x-circle-fill"></i></a>
+            {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+           {% include "components/empty.html" %}
+    {% endfor%}  
+{% endblock %}
+
+
+
+
+

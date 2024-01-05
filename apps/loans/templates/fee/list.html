@@ -26,10 +26,10 @@
             <td>{{item.payment_date}}</td>
             <td class="text-center ">
             {% if permissions.change_fee %}
-                <a class="text-success fs-4" href="{% url 'loans:fee_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar el seguro"><i class="bi bi-pencil-fill"></i></a>
+                <a class="text-success fs-4" href="{% url 'loans:fee_update' item.id %}" data-bs-toggle="tooltip" data-bs-title="Editar la cuota"><i class="bi bi-pencil-fill"></i></a>
             {% endif %}
             {% if permissions.delete_fee %}
-                <a class="text-danger fs-4" href="{% url 'loans:fee_delete' item.id %}" data-bs-toggle="tooltip" data-bs-title="Eliminar el seguro"><i class="bi bi-x-circle-fill"></i></a>
+                <a class="text-danger fs-4" href="{% url 'loans:fee_delete' item.id %}" data-bs-toggle="tooltip" data-bs-title="Eliminar la cuota"><i class="bi bi-x-circle-fill"></i></a>
             {% endif %}
             </td>
         </tr>

@@ -1,17 +1,17 @@
 from django.urls import reverse_lazy
-from apps.loans.models import Fee
-from apps.loans.forms.fee import FeeForm
+from apps.loans.models import Quote
+from apps.loans.forms.quote import QuoteForm
 
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Q
 from apps.security.mixins.mixins import ListViewMixin, CreateViewMixin, UpdateViewMixin, DeleteViewMixin, PermissionMixin
 
 
-class FeeListView(ListViewMixin, ListView):
-    model = Fee
-    template_name = 'fee/list.html'
-    context_object_name = 'fees'
-    permission_required = 'view_fee'
+class QuoteListView(ListViewMixin, ListView):
+    model = Quote
+    template_name = 'quote/list.html'
+    context_object_name = 'quotes'
+    permission_required = 'view_quote'
 
     def get_queryset(self):
         self.query = Q()
@@ -26,18 +26,18 @@ class FeeListView(ListViewMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'cuotas'
-        context['create_url'] = reverse_lazy('loans:fee_create')
+        context['create_url'] = reverse_lazy('loans:quote_create')
         context['permission_add'] = context['permissions'].get(
-            'add_fee', '')
+            'add_quote', '')
         return context
 
 
-class FeeCreateView(CreateViewMixin, CreateView):
-    model = Fee
-    template_name = 'fee/form.html'
-    form_class = FeeForm
-    success_url = reverse_lazy('loans:fee_list')
-    permission_required = 'add_fee'
+class QuoteCreateView(CreateViewMixin, CreateView):
+    model = Quote
+    template_name = 'quote/form.html'
+    form_class = QuoteForm
+    success_url = reverse_lazy('loans:quote_list')
+    permission_required = 'add_quote'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -46,12 +46,12 @@ class FeeCreateView(CreateViewMixin, CreateView):
         return context
 
 
-class FeeUpdateView(UpdateViewMixin, UpdateView):
-    model = Fee
-    template_name = 'fee/form.html'
-    form_class = FeeForm
-    success_url = reverse_lazy('loans:fee_list')
-    permission_required = 'change_fee'
+class QuoteUpdateView(UpdateViewMixin, UpdateView):
+    model = Quote
+    template_name = 'quote/form.html'
+    form_class = QuoteForm
+    success_url = reverse_lazy('loans:quote_list')
+    permission_required = 'change_quote'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -60,11 +60,11 @@ class FeeUpdateView(UpdateViewMixin, UpdateView):
         return context
 
 
-class FeeDeleteView(DeleteViewMixin, DeleteView):
-    model = Fee
-    template_name = 'fee/delete.html'
-    success_url = reverse_lazy('loans:fee_list')
-    permission_required = 'delete_fee'
+class QuoteDeleteView(DeleteViewMixin, DeleteView):
+    model = Quote
+    template_name = 'quote/delete.html'
+    success_url = reverse_lazy('loans:quote_list')
+    permission_required = 'delete_quote'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

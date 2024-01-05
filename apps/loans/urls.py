@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.loans.views import insurance, insurier, employee, entry, fee, payment
+from apps.loans.views import insurance, insurier, employee, entry, quote, payment,loan
 app_name = "loans"
 urlpatterns = []
 # urls de las vistas de organizacion
@@ -56,19 +56,19 @@ urlpatterns += [
     path('entry/delete/<int:pk>',
          entry.EntryDeleteView.as_view(),
          name="entry_delete"),
-    # fee
-    path('fee/list',
-         fee.FeeListView.as_view(),
-         name="fee_list"),
-    path('fee/create',
-         fee.FeeCreateView.as_view(),
-         name="fee_create"),
-    path('fee/update/<int:pk>',
-         fee.FeeUpdateView.as_view(),
-         name="fee_update"),
-    path('fee/delete/<int:pk>',
-         fee.FeeDeleteView.as_view(),
-         name="fee_delete"),
+    # quote
+    path('quote/list',
+         quote.QuoteListView.as_view(),
+         name="quote_list"),
+    path('quote/create',
+         quote.QuoteCreateView.as_view(),
+         name="quote_create"),
+    path('quote/update/<int:pk>',
+         quote.QuoteUpdateView.as_view(),
+         name="quote_update"),
+    path('quote/delete/<int:pk>',
+         quote.QuoteDeleteView.as_view(),
+         name="quote_delete"),
     # payments
 
     path('payment/list',
@@ -83,4 +83,18 @@ urlpatterns += [
     path('payment/delete/<int:pk>',
          payment.PaymentDeleteView.as_view(),
          name="payment_delete"),
+
+     # loan
+    path('loan/list',
+         loan.LoanListView.as_view(),
+         name="loan_list"),
+    path('loan/create',
+         loan.LoanCreateView.as_view(),
+         name="loan_create"),
+    path('loan/update/<int:pk>',
+         loan.LoanUpdateView.as_view(),
+         name="loan_update"),
+    path('loan/delete/<int:pk>',
+         loan.LoanDeleteView.as_view(),
+         name="loan_delete"),
 ]

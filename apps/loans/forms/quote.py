@@ -1,8 +1,8 @@
 from django.forms import ModelForm
-from apps.loans.models import Fee
+from apps.loans.models import Quote
 
 
-class FeeForm(ModelForm):
+class QuoteForm(ModelForm):
     class Meta:
-        model = Fee
+        model = Quote
         fields = ['payment_date']

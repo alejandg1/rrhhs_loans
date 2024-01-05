@@ -118,7 +118,7 @@ class Entry(models.Model):
 # cuota
 
 
-class Fee(models.Model):
+class Quote(models.Model):
     id = models.AutoField(primary_key=True)
     payment_date = models.DateField(
         verbose_name="fecha de pago",
@@ -134,4 +134,20 @@ class Payment(models.Model):
         auto_now=True)
     amount = models.FloatField(verbose_name="cantidad",
                                default=0)
-    fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
+    Quote = models.ForeignKey(Quote, on_delete=models.CASCADE)
+
+
+class Loan(models.Model):
+    id = models.AutoField(primary_key=True)
+    entry = models.ForeignKey(Entry, on_delete = models.PROTECT)
+    employee = models.ForeignKey(Employee,on_delete=models.PROTECT)
+    amount = models.FloatField()
+    date = models.DateField(verbose_name = "fecha creación",auto_now=True)
+    quota_value = models.FloatField()
+    quota_num = models.IntegerField()
+    frst_payment = models.DateField(verbose_name ="primer pago", auto_now=False)
+    period = models.DateField(verbose_name = "periodo")
+    state = models.CharField(max_length=20,
+                             verbose_name='estado',
+                             choices=ESTADO_CHOICES,
+                             default='activo')
