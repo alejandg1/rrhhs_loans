@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.loans.views import insurance, insurier, employee, entry, quote, payment,loan
+from apps.loans.views import insurance, insurier, employee, entry, quote, payment, loan
 app_name = "loans"
 urlpatterns = []
 # urls de las vistas de organizacion
@@ -84,7 +84,7 @@ urlpatterns += [
          payment.PaymentDeleteView.as_view(),
          name="payment_delete"),
 
-     # loan
+    # loan
     path('loan/list',
          loan.LoanListView.as_view(),
          name="loan_list"),
